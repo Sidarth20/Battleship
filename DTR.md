@@ -5,8 +5,10 @@ Use this template when conducting DTR with your project partners. *It's recommen
 ### Guiding Questions to Define The Relationship:
 
 * What are each of our learning goals for this project? What drives us in this project?
+    
   -Joanna: Learning to pair program in harmony. Follow TDD process as much as we can. To pass & understand the REPL.
   -Sid: I want to be able to effectively pair program & also understand each line of code well. To learn how to not only code efficiently but to understand the process in order to pass.
+  
 * What is your collaboration style? How do you feel about pair programming vs. divide-and-conquer approaches?
   -Joanna: Open collaboration. We have to do pair programming for this assignment.
   -Sid: Open collaboration. We have to do pair programming for this assignment.
@@ -122,4 +124,4 @@ Day 1 Agenda:
   -Use ruby files to do diagramming as well.
   
 Additional Notes:
-  
+  -Update spacing on Re-DTR on Friday.
