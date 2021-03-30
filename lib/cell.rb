@@ -24,4 +24,12 @@ class Cell
   def fire_upon
     ship.hit
   end
+
+  def render
+    if @ship == nil && @coordinate != coordinate
+      "."
+    elsif @ship == nil && @coordinate 
+      "M"
+    end
+  end
 end
