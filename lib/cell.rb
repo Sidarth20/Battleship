@@ -1,10 +1,11 @@
 class Cell
   require 'pry'
-  attr_reader :coordinate, :ship
+  attr_reader :coordinate, :ship, :fired_at
 
   def initialize(coordinate)
     @coordinate = coordinate
     @ship = nil
+    @fired_at = false
   end
 
   def empty?
@@ -17,31 +18,34 @@ class Cell
   end
 
   def fired_upon?
-    # PSEUDOCODE
-    # if @ship is value && @coordinate = coordinate
-      # ship has been hit & fired upon
-    #elsif @ship = nil && @coordinate = coordinate
-      #ship has been fired upon & it's a miss
-
-    return false if @ship.health == ship.length
-    true
+    if !empty?
+      return false if @ship.health == ship.length
+      true
+    else
+      return false if fired_at != true
+      true
+    end
   end
 
   def fire_upon
-    self.fired_upon? == true
-    if empty? == false
+    @fired_at = true
+    if !empty?
       ship.hit
     end
   end
 
+
   def render
-    if @ship == nil && fired_upon?
+    if fired_upon? == false
       "."
-    elsif @ship == nil && fired_upon?
+    elsif fired_upon? && empty?
       "M"
+    # elsif fired_upon? == true && ship.sunk? == true
+    #   "X"
+    # elsif fired_upon? == true && empty? == false
+    #   "H"
     end
   end
-
 end
 
 

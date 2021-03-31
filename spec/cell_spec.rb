@@ -67,6 +67,7 @@ RSpec.describe Cell do
     cell_1 = Cell.new("B4")
 
     cell_1.render
+    # binding.pry
 
     expect(cell_1.render).to eq(".")
 
