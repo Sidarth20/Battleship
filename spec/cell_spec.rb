@@ -42,7 +42,7 @@ RSpec.describe Cell do
     expect(cell.empty?).to eq(false)
   end
 
-  it 'is has been fired upon' do
+  it 'is has been fired upon & not hit' do
     cell = Cell.new("B4")
     cruiser = Ship.new("Cruiser", 3)
 
@@ -51,19 +51,7 @@ RSpec.describe Cell do
     expect(cell.fired_upon?).to eq(false)
   end
 
-  it 'is has not been fired upon' do
-    cell = Cell.new("B4")
-    cruiser = Ship.new("Cruiser", 3)
-
-    cell.place_ship(cruiser)
-
-    expect(cell.fired_upon?).to eq(false)
-
-    cell.fire_upon
-    expect(cell.ship.health).to eq(2)
-  end
-
-  it 'is has been fired upon' do
+  it 'is has been fired upon & hit' do
     cell = Cell.new("B4")
     cruiser = Ship.new("Cruiser", 3)
 
@@ -71,6 +59,7 @@ RSpec.describe Cell do
 
     cell.fire_upon
     expect(cell.ship.health).to eq(2)
+    # binding.pry
     expect(cell.fired_upon?).to eq(true)
   end
 
@@ -78,6 +67,7 @@ RSpec.describe Cell do
     cell_1 = Cell.new("B4")
 
     cell_1.render
+    # binding.pry
 
     expect(cell_1.render).to eq(".")
 
