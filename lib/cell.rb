@@ -34,6 +34,14 @@ class Cell
     end
   end
 
+  def render
+    if @ship == nil && fired_upon?
+      "."
+    elsif @ship == nil && fired_upon?
+      "M"
+    end
+  end
+
 end
 
 
@@ -60,11 +68,5 @@ end
   #   end
   # end
   #
-  # def render
-  #   if @ship == nil && @coordinate != coordinate
-  #     "."
-  #   elsif @ship == nil && @coordinate
-  #     "M"
-  #   end
-  # end
+
   #
