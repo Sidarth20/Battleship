@@ -16,6 +16,11 @@ class Board
     cells.has_key?(coordinate)
   end
 
+  def valid_placement?(ship, location)
+    ship.length == location.length
+    false
+  end
+
 end
 
 # '.' - maybe explore default value
