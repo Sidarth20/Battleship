@@ -66,12 +66,48 @@ RSpec.describe Cell do
   it 'has been rendered' do
     cell_1 = Cell.new("B4")
 
-    cell_1.render
+    cell_1.render(false)
     # binding.pry
 
-    expect(cell_1.render).to eq(".")
+    expect(cell_1.render(false)).to eq(".")
 
     cell_1.fire_upon
-    expect(cell_1.render).to eq("M")
+    expect(cell_1.render(false)).to eq("M")
+  end
+
+  it 'has been shown' do
+    cell_2 = Cell.new("C3")
+    cruiser = Ship.new("Cruiser", 3)
+
+    cell_2.place_ship(cruiser)
+
+    expect(cell_2.render(false)).to eq(".")
+    expect(cell_2.render(true)).to eq("S")
+  end
+
+  it 'has been hit' do
+    cell_2 = Cell.new("C3")
+    cruiser = Ship.new("Cruiser", 3)
+
+    cell_2.place_ship(cruiser)
+    cell_2.fire_upon
+
+    expect(cell_2.render(false)).to eq("H")
+    expect(cell_2.render(true)).to eq("H")
+  end
+
+  it 'has it been sunk?' do
+    cruiser = Ship.new("Cruiser", 3)
+    cell_2 = Cell.new("C3")
+    cell_2.place_ship(cruiser)
+    cell_2.fire_upon
+
+    cruiser.sunk?
+    expect(cruiser.sunk?).to eq(false)
+
+    cruiser.hit
+    cruiser.hit
+    expect(cruiser.sunk?).to eq(true)
+    expect(cell_2.render(false)).to eq("X")
   end
 end
