@@ -1,4 +1,9 @@
+require 'rspec'
+require './lib/ship'
+require './lib/cell'
 require './lib/board'
+require 'pry'
+
 
 RSpec.describe 'Board' do
   it 'exists' do
@@ -9,22 +14,37 @@ RSpec.describe 'Board' do
 
   it 'has cells' do
     board = Board.new
-
-    expect(board.cells).to eq({ "A1" => cell,
-                                "A2" => cell,
-                                "A3" => cell,
-                                "A4" => cell,
-                                "A5" => cell,
-                                "A6" => cell,
-                                "A7" => cell,
-                                "A8" => cell,
-                                "A9" => cell,
-                                "A10" => cell,
-                                "A11" => cell,
-                                "A12" => cell,
-                                "A13" => cell,
-                                "A14" => cell,
-                                "A15" => cell,
-                                "A16" => cell})
+    expect(board.cells.count).to eq(16)
   end
+
+  it 'validates coordinates' do
+    board = Board.new
+    expect(board.valid_coordinate?("A1")).to eq(true)
+    expect(board.valid_coordinate?("D4")).to eq(true)
+    expect(board.valid_coordinate?("A5")).to eq(false)
+    expect(board.valid_coordinate?("E1")).to eq(false)
+    expect(board.valid_coordinate?("A22")).to eq(false)
+  end
+
+it 'validates placements' do
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    submarine = Ship.new("Submarine", 2)
+    expect(board.valid_placement?(cruiser, ["A1", "A2"])).to eq(false)
+    expect(board.valid_placement?(submarine, ["A2", "A3", "A4"])).to eq(false)
+  end
+
+  it 'validates placements are consecutive' do
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    submarine = Ship.new("Submarine", 2)
+    board.split(["A1", "A2", "A4"])
+    board.consecutive_numbers(cruiser, ["A1", "A2", "A4"]))
+    expect(board.valid_placement?(cruiser, ["A1", "A2", "A4"])).to eq(false)
+    board.split(["A2", "C1"])
+    board.consecutive_numbers(submarine, ["A2", "C1"]))
+    expect(board.valid_placement?(submarine, ["A2", "C1"])).to eq(false)
+  end
+
+
 end
