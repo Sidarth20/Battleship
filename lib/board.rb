@@ -17,7 +17,7 @@ class Board
   end
 
   def valid_placement?(ship, location)
-    ship.length == location.length
+    if ship.length == location.length
     #horizontal
       if location[0].ord == location[1].ord
         numbers = location.map do |cell|
@@ -27,46 +27,14 @@ class Board
           num2 - num1 == 1
         end
     #vertical
-      letters = location.map do |cell|
+      else letters = location.map do |cell|
         cell.split.first.ord
-      end
-      letters.each_cons(ship.length).find do |num1, num2|
-        num2 - num1 == 1
+        end
+        letters.each_cons(ship.length).find do |num1, num2|
+          num2 - num1 == 1
+        end
       end
     end
     false
   end
-
-
-
-  end
-  #
-  #
-  # def split(location)
-  #   location.map do |cell|
-  #     cell.split('').last.to_i
-  #   end
-  # end
-  #
-  # def consecutive_numbers(ship, location) #consider name
-    # location.each_cons(ship.length).find do |num1, num2|
-    #   num2 - num1 == 1
-    # end
-  # end
-
- #slit value && ord value > 1
- #not consecutive
-
-
-
-
-
-
-#
-#
-# return true if ship.length == location.length
-#   if location.each_cons(location.length) do |cell|
-#
-#
-# false
-# end
+end
