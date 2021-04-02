@@ -16,50 +16,30 @@ class Board
     cells.has_key?(coordinate)
   end
 
-  def horizontal_check(ship, location)
-    if location[0].ord == location[1].ord
-      numbers = location.map do |cell|
-        cell.split('').last.to_i
-      end
-      if ship.length == 3
-        numbers.each_cons(3).find do |num1, num2, num3|
-          if (num2 - num1 == 1) && (num3 - num2 == 1)
-            true
-          else
-            false
-          end
-        end
-      else
-        numbers.each_cons(2).find do |num1, num2|
-          num2 - num1 == 1
-        end
-      end
-    end
+  def consecutive_check(a)
+    a = a.sort
+    a == (a.min..a.max).to_a && a.count == a.length
   end
 
-  def vertical_check (ship, location)
-    if location[0].ord != location[1].ord
-      letters = location.map do |cell|
-        cell.split.first.ord
-      end
-      if ship.length == 3
-        letters.each_cons(3).find do |num1, num2, num3|
-          if (num2 - num1 == 1) && (num3 - num2 == 1)
-            true
-          else
-            false
-          end
-        end
-      else
-        letters.each_cons(2).find do |num1, num2|
-          num2 - num1 == 1
-        end
-      end
-    end
+  def horizontal_check(letters, numbers)
+    is_horizontal = letters.uniq.length == 1
+    return false unless is_horizontal
+    consecutive_check(numbers)
+  end
+
+  def vertical_check (letters, numbers)
+    # for a vertical ship (if the rows are letters and columns are numbers)
+    # then all of the letters should be unique
+    vertical_check1 = numbers.uniq.length == 1
+    return false unless vertical_check1
+    letters_to_nums = letters.map { |n| n.ord }
+    consecutive_check(letters_to_nums)
   end
 
   def valid_placement?(ship, location)
-    return true if ship.length == location.length && horizontal_check(ship, location) || vertical_check(ship, location)
+    letters = location.map{|i|i.split('').first}
+    numbers = location.map{|i|i.split('').last}
+    return true if ship.length == location.length && horizontal_check(letters, numbers) || vertical_check(letters, numbers)
     false
   end
 end
