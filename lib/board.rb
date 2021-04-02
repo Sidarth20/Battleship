@@ -17,7 +17,6 @@ class Board
   end
 
   def consecutive_check(a)
-    a = a.sort
     a == (a.min..a.max).to_a && a.count == a.length
   end
 
@@ -42,27 +41,5 @@ class Board
     return true if ship.length == location.length && horizontal_check(letters, numbers) || vertical_check(letters, numbers)
     false
   end
-end
 
-#   def valid_placement?(ship, location)
-#     if ship.length == location.length
-#     #horizontal
-#       if location[0].ord == location[1].ord
-#         numbers = location.map do |cell|
-#           cell.split('').last.to_i
-#         end
-#         numbers.each_cons(ship.length).find do |num1, num2|
-#           num2 - num1 == 1
-#         end
-#     #vertical
-#       else letters = location.map do |cell|
-#         cell.split.first.ord
-#         end
-#         letters.each_cons(ship.length).find do |num1, num2|
-#           num2 - num1 == 1
-#         end
-#       end
-#     end
-#     false
-#   end
-# end
+end

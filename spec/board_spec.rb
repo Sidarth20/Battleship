@@ -33,10 +33,10 @@ it 'validates placements' do
     expect(board.valid_placement?(cruiser, ["A1", "A2"])).to eq(false)
     expect(board.valid_placement?(submarine, ["A2", "A3", "A4"])).to eq(false)
 
-    #checks for true horizontal placement
+    # checks for true horizontal placement
     expect(board.valid_placement?(cruiser, ["A1", "A2", "A3"])).to eq(true)
     expect(board.valid_placement?(submarine, ["A2", "A3"])).to eq(true)
-    #checks for false horizontal placement
+    # checks for false horizontal placement
     expect(board.valid_placement?(cruiser, ["B1", "A2", "A3"])).to eq(false)
     expect(board.valid_placement?(submarine, ["B2", "A3"])).to eq(false)
 
@@ -49,7 +49,7 @@ it 'validates placements' do
 
   end
 
-  xit 'validates placements are consecutive' do
+  it 'validates placements are consecutive' do
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
@@ -60,14 +60,22 @@ it 'validates placements' do
     expect(board.valid_placement?(submarine, ["C1", "B1"])).to eq(false)
   end
 
-  xit 'validates placements are not diagonal' do
+  it 'validates placements are not diagonal' do
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
 
-    expect(board.valid_placement?(cruiser, ["A1", "A2", "A4"])).to eq(false)
-    expect(board.valid_placement?(submarine, ["A1", "C1"])).to eq(false)
-    expect(board.valid_placement?(submarine, ["A3", "A2", "A1"])).to eq(false)
-    expect(board.valid_placement?(submarine, ["C1", "B1"])).to eq(false)
+    expect(board.valid_placement?(cruiser, ["A1", "B2", "C3"])).to eq(false)
+    expect(board.valid_placement?(submarine, ["C2", "D3"])).to eq(false)
   end
+
+  it 'has valid placement' do
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    submarine = Ship.new("Submarine", 2)
+
+    expect(board.valid_placement?(submarine, ["A1", "A2"])).to eq(true)
+    expect(board.valid_placement?(cruiser, ["B1", "C1", "D1"])).to eq(true)
+  end
+
 end
