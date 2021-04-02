@@ -34,11 +34,15 @@ it 'validates placements' do
     expect(board.valid_placement?(submarine, ["A2", "A3", "A4"])).to eq(false)
   end
 
-  xit 'validates placements are consecutive' do
+  it 'validates placements are consecutive' do
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
+    board.split(["A1", "A2", "A4"])
+    board.consecutive_numbers(cruiser, ["A1", "A2", "A4"]))
     expect(board.valid_placement?(cruiser, ["A1", "A2", "A4"])).to eq(false)
+    board.split(["A2", "C1"])
+    board.consecutive_numbers(submarine, ["A2", "C1"]))
     expect(board.valid_placement?(submarine, ["A2", "C1"])).to eq(false)
   end
 
