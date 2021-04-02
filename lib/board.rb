@@ -1,6 +1,7 @@
 class Board
 
   def initialize
+    @cells = cells
   end
 
   def cells
@@ -16,9 +17,13 @@ class Board
     cells.has_key?(coordinate)
   end
 
-  def consecutive_check(a)
-    a == (a.min..a.max).to_a && a.count == a.length
+  def consecutive_check(values)
+    values == (values.min..values.max).to_a && values.count == values.length
   end
+
+  # def consecutive_check(a)
+  #   a == (a.min..a.max).to_a && a.count == a.length
+  # end
 
   def horizontal_check(letters, numbers)
     is_horizontal = letters.uniq.length == 1
