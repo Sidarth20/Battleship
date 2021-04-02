@@ -21,18 +21,39 @@ class Board
       numbers = location.map do |cell|
         cell.split('').last.to_i
       end
-      numbers.each_cons(ship.length).find do |num1, num2|
-        num2 - num1 == 1
+      if ship.length == 3
+        numbers.each_cons(3).find do |num1, num2, num3|
+          if (num2 - num1 == 1) && (num3 - num2 == 1)
+            true
+          else
+            false
+          end
+        end
+      else
+        numbers.each_cons(2).find do |num1, num2|
+          num2 - num1 == 1
+        end
       end
     end
   end
 
   def vertical_check (ship, location)
-    if letters = location.map do |cell|
-      cell.split.first.ord
+    if location[0].ord != location[1].ord
+      letters = location.map do |cell|
+        cell.split.first.ord
       end
-      letters.each_cons(ship.length).find do |num1, num2|
-        num2 - num1 == 1
+      if ship.length == 3
+        letters.each_cons(3).find do |num1, num2, num3|
+          if (num2 - num1 == 1) && (num3 - num2 == 1)
+            true
+          else
+            false
+          end
+        end
+      else
+        letters.each_cons(2).find do |num1, num2|
+          num2 - num1 == 1
+        end
       end
     end
   end
@@ -42,7 +63,6 @@ class Board
     false
   end
 end
-
 
 #   def valid_placement?(ship, location)
 #     if ship.length == location.length
