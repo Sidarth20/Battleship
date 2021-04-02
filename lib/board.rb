@@ -16,25 +16,53 @@ class Board
     cells.has_key?(coordinate)
   end
 
-  def valid_placement?(ship, location)
-    if ship.length == location.length
-    #horizontal
-      if location[0].ord == location[1].ord
-        numbers = location.map do |cell|
-          cell.split('').last.to_i
-        end
-        numbers.each_cons(ship.length).find do |num1, num2|
-          num2 - num1 == 1
-        end
-    #vertical
-      else letters = location.map do |cell|
-        cell.split.first.ord
-        end
-        letters.each_cons(ship.length).find do |num1, num2|
-          num2 - num1 == 1
-        end
+  def horizontal_check(ship, location)
+    if location[0].ord == location[1].ord
+      numbers = location.map do |cell|
+        cell.split('').last.to_i
+      end
+      numbers.each_cons(ship.length).find do |num1, num2|
+        num2 - num1 == 1
       end
     end
+  end
+
+  def vertical_check (ship, location)
+    if letters = location.map do |cell|
+      cell.split.first.ord
+      end
+      letters.each_cons(ship.length).find do |num1, num2|
+        num2 - num1 == 1
+      end
+    end
+  end
+
+  def valid_placement?(ship, location)
+    return true if ship.length == location.length && horizontal_check(ship, location) || vertical_check(ship, location)
     false
   end
 end
+
+
+#   def valid_placement?(ship, location)
+#     if ship.length == location.length
+#     #horizontal
+#       if location[0].ord == location[1].ord
+#         numbers = location.map do |cell|
+#           cell.split('').last.to_i
+#         end
+#         numbers.each_cons(ship.length).find do |num1, num2|
+#           num2 - num1 == 1
+#         end
+#     #vertical
+#       else letters = location.map do |cell|
+#         cell.split.first.ord
+#         end
+#         letters.each_cons(ship.length).find do |num1, num2|
+#           num2 - num1 == 1
+#         end
+#       end
+#     end
+#     false
+#   end
+# end
