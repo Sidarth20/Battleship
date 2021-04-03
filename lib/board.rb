@@ -35,10 +35,21 @@ class Board
     consecutive_check(letters_to_nums)
   end
 
+  # trying to create a method to check if there's a ship in the cells
+  # and if that ship has the same coordinates as the 2nd ship
+  # then overlap is true & it's not a valid placement
+  def overlap_check
+    binding.pry
+    values = cells.values
+    values.each do |cell|
+      cell.empty?
+    end
+  end
+
   def valid_placement?(ship, location)
     letters = location.map{|letter|letter.split('').first}
     numbers = location.map{|number|number.split('').last}
-    return true if ship.length == location.length && horizontal_check(letters, numbers) || vertical_check(letters, numbers)
+    return true if ship.length == location.length && overlap_check == false && horizontal_check(letters, numbers) || vertical_check(letters, numbers)
     false
   end
 
@@ -54,7 +65,6 @@ class Board
       end
     end
     values
-    # binding.pry
   end
 
 end
