@@ -59,7 +59,7 @@ it 'validates placements' do
     board = Board.new
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
-
+    # binding.pry
     expect(board.valid_placement?(submarine, ["A1", "A2"])).to eq(true)
     expect(board.valid_placement?(cruiser, ["B1", "C1", "D1"])).to eq(true)
   end
@@ -92,8 +92,6 @@ it 'validates placements' do
     cruiser = Ship.new("Cruiser", 3)
     board.place(cruiser, ["A1", "A2", "A3"])
     submarine = Ship.new("Submarine", 2)
-    board.place(submarine, ["A1", "A2"])
-    board.overlap_check(cruiser, ["A1", "A2", "A3"])
 
     expect(board.valid_placement?(submarine, ["A1", "B1"])).to eq(false)
   end

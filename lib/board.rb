@@ -38,19 +38,20 @@ class Board
   # trying to create a method to check if there's a ship in the cells
   # and if that ship has the same coordinates as the 2nd ship
   # then overlap is true & it's not a valid placement
-  def overlap_check
-    binding.pry
-    values = cells.values
-    values.each do |cell|
-      cell.empty?
+  def overlaps(location)
+    location.each do |item|
+      if not cells[item].empty?
+        return true
+      end
     end
+    return false
   end
 
   def valid_placement?(ship, location)
     letters = location.map{|letter|letter.split('').first}
     numbers = location.map{|number|number.split('').last}
-    return true if ship.length == location.length && overlap_check == false && horizontal_check(letters, numbers) || vertical_check(letters, numbers)
-    false
+    # binding.pry
+    ship.length == location.length && !overlaps(location) && (horizontal_check(letters, numbers) || vertical_check(letters, numbers))
   end
 
   def place(ship, location)
