@@ -42,26 +42,44 @@ class Board
   end
 
   def place(ship, location)
+    values = cells.values
+    keys = cells.keys
+    #check if location is included within keys array
+    if keys.include?(location[0]) && keys.include?(location[1]) || keys.include?(location[2])
+    #how to place ship in the values array with the coordinate attribute
+    #check if coordinate matches location value,
+    # place_ship(ship) into cell
+    values.find do |value|
+      value.coordinate == location #get into string
+        values.each do |value|
+          values.place_ship(ship)
+        end
+
+    # cells.values.place_ship(ship)
     # binding.pry
-    # cell_1 = self.cells[location.]
-    # cell_2 = board.cells["A2"]
-    # cell_3 = board.cells["A3"]
-
-    #if cell_1 @coordinate == cells[key]
-      #cell_1.place_ship(ship)
-
-    #keys = []
-    #cells.each_key{|cell| keys << cell}
+    # if cell_1 @coordinate == cells[key]
+    #   cell_1.place_ship(ship)
+    #
+    # keys = []
+    # cells.each_key{|cell| keys << cell}
     # keys
-    #Need comparison between board.cells["A1"] == keys array
-
-    #values = []
-    #cells.each_value{|cell| values << cell}
+    # Need comparison between board.cells["A1"] == keys array
+    #
+    # values = []
+    # cells.each_value do |cell|
+    #   if cell_1 == cells.values
+    #     values << cell.values.place_ship(ship)
+    #   end
+    # end
     # values
+    # end
 
-    #placing Ship
+    # placing Ship
     # values.first.place_ship(ship)
     # values.first
+    #
+    # until coordinates == ship.length
+    # place ship into coordinates
 
   end
 
