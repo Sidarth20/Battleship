@@ -21,10 +21,6 @@ class Board
     values == (values.min..values.max).to_a && values.count == values.length
   end
 
-  # def consecutive_check(a)
-  #   a == (a.min..a.max).to_a && a.count == a.length
-  # end
-
   def horizontal_check(letters, numbers)
     is_horizontal = letters.uniq.length == 1
     return false unless is_horizontal
@@ -32,19 +28,41 @@ class Board
   end
 
   def vertical_check (letters, numbers)
-    # for a vertical ship (if the rows are letters and columns are numbers)
-    # then all of the letters should be unique
-    vertical_check1 = numbers.uniq.length == 1
-    return false unless vertical_check1
-    letters_to_nums = letters.map { |n| n.ord }
+    is_vertical = numbers.uniq.length == 1
+    return false unless is_vertical
+    letters_to_nums = letters.map { |letter| letter.ord }
     consecutive_check(letters_to_nums)
   end
 
   def valid_placement?(ship, location)
-    letters = location.map{|i|i.split('').first}
-    numbers = location.map{|i|i.split('').last}
+    letters = location.map{|letter|letter.split('').first}
+    numbers = location.map{|number|number.split('').last}
     return true if ship.length == location.length && horizontal_check(letters, numbers) || vertical_check(letters, numbers)
     false
+  end
+
+  def place(ship, location)
+    # binding.pry
+    # cell_1 = self.cells[location.]
+    # cell_2 = board.cells["A2"]
+    # cell_3 = board.cells["A3"]
+
+    #if cell_1 @coordinate == cells[key]
+      #cell_1.place_ship(ship)
+
+    #keys = []
+    #cells.each_key{|cell| keys << cell}
+    # keys
+    #Need comparison between board.cells["A1"] == keys array
+
+    #values = []
+    #cells.each_value{|cell| values << cell}
+    # values
+
+    #placing Ship
+    # values.first.place_ship(ship)
+    # values.first
+
   end
 
 end
