@@ -91,7 +91,7 @@ it 'validates placements' do
     cell_1.ship
     cell_2.ship
     cell_3.ship
-
+    binding.pry
     expect(cell_3.ship == cell_2.ship).to eq(true)
   end
 end
