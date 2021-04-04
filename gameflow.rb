@@ -36,7 +36,7 @@ require 'pry'
     until board_computer.valid_placement?(cruiser_computer, location)
       new_placement = board_computer.place(cruiser_computer, key)
     end
-
+  end
   end
 
   welcome_screen
