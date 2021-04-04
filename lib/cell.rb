@@ -1,11 +1,12 @@
 class Cell
   require 'pry'
-  attr_reader :coordinate, :ship, :fired_at
+  attr_reader :coordinate, :ship, :fired_at, :reader
 
   def initialize(coordinate)
     @coordinate = coordinate
     @ship = nil
     @fired_at = false
+    @reader = render
   end
 
   def empty?
@@ -34,7 +35,7 @@ class Cell
     end
   end
 
-  def render(always_reveal)
+  def render(always_reveal = false)
     if fired_upon? == false
       if always_reveal == true
         'S'

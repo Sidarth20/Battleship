@@ -95,4 +95,13 @@ it 'validates placements' do
 
     expect(board.valid_placement?(submarine, ["A1", "B1"])).to eq(false)
   end
+
+  it "renders" do
+    board = Board.new
+    cruiser = Ship.new("Cruiser", 3)
+    board.place(cruiser, ["A1", "A2", "A3"])
+    board.render
+    # board.render(true)
+    binding.pry
+  end
 end

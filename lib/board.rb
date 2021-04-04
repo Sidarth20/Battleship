@@ -35,9 +35,6 @@ class Board
     consecutive_check(letters_to_nums)
   end
 
-  # trying to create a method to check if there's a ship in the cells
-  # and if that ship has the same coordinates as the 2nd ship
-  # then overlap is true & it's not a valid placement
   def overlaps(location)
     location.each do |item|
       if not cells[item].empty?
@@ -66,6 +63,21 @@ class Board
       end
     end
     values
+  end
+
+  def render
+    # @spaces
+    values = cells.values
+    string = values.map do |cell|
+      cell.reader
+    end
+    string
+
+    p spaces = "  1 2 3 4 \n" +
+              "A #{string[0]} #{string[1]} #{string[2]} #{string[3]} \n" +
+              "B #{string[4]} #{string[5]} #{string[6]} #{string[7]} \n" +
+              "C #{string[8]} #{string[9]} #{string[10]} #{string[11]} \n" +
+              "D #{string[12]} #{string[13]} #{string[14]} #{string[15]} \n"
   end
 
 end
