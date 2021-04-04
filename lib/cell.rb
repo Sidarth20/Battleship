@@ -1,12 +1,12 @@
 class Cell
   require 'pry'
-  attr_reader :coordinate, :ship, :fired_at, :reader
+  attr_reader :coordinate, :ship, :fired_at, :render
 
   def initialize(coordinate)
     @coordinate = coordinate
     @ship = nil
     @fired_at = false
-    @reader = render
+    # @reader = render
   end
 
   def empty?

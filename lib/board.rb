@@ -65,19 +65,23 @@ class Board
     values
   end
 
-  def render
-    # @spaces
+  def render(always_reveal = false)
     values = cells.values
-    string = values.map do |cell|
-      cell.reader
+    if always_reveal == true
+      string = values.map do |cell|
+        cell.render(true)
+      end
+    else string = values.map do |cell|
+      cell.render
     end
-    string
+  end
+  string
 
-    p spaces = "  1 2 3 4 \n" +
-              "A #{string[0]} #{string[1]} #{string[2]} #{string[3]} \n" +
-              "B #{string[4]} #{string[5]} #{string[6]} #{string[7]} \n" +
-              "C #{string[8]} #{string[9]} #{string[10]} #{string[11]} \n" +
-              "D #{string[12]} #{string[13]} #{string[14]} #{string[15]} \n"
+  p spaces = "  1 2 3 4 \n" +
+             "A #{string[0]} #{string[1]} #{string[2]} #{string[3]} \n" +
+             "B #{string[4]} #{string[5]} #{string[6]} #{string[7]} \n" +
+             "C #{string[8]} #{string[9]} #{string[10]} #{string[11]} \n" +
+             "D #{string[12]} #{string[13]} #{string[14]} #{string[15]} \n"
   end
 
 end
