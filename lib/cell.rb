@@ -37,7 +37,7 @@ class Cell
 
   def render(always_reveal = false)
     if fired_upon? == false
-      if always_reveal == true
+      if always_reveal == true && !empty?
         'S'
       else
         '.'
