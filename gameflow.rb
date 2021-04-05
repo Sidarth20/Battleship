@@ -24,20 +24,25 @@ require 'pry'
     cruiser_computer = Ship.new("Cruiser", 3)
     submarine_computer = Ship.new("Submarine", 2)
 
-    puts "computer time"
     #computer_setup
-    #need to generate random coordinates based on grid
-    # with adhering to valid placement principles
-    #^store above coordinates in computer_coordinates
-    #then
-    binding.pry
+    # binding.pry
     keys = board_computer.cells.keys
-    keys.sample(cruiser_computer.length, random: Random.new(1)) do |key|
-    until board_computer.valid_placement?(cruiser_computer, location)
-      new_placement = board_computer.place(cruiser_computer, key)
+    new_placement = keys.sample(cruiser_computer.length, random: Random.new(1)) do |key|
+      board_computer.place(cruiser_computer, key)
+    end
+    #Now I need to iterate to get valid placement location. Once the location works,
+    #Can pass that location to board_computer.place for cruiser. then reiterate for sub
+    location = new_placement
+    if board_computer.valid_placement?(cruiser_computer, location) == false
+      #How do I reiterate lines 39-40 below to keep generating placements until valid_placement == true?
+      new_placement = keys.sample(cruiser_computer.length, random: Random.new(1)) do |key|
+        board_computer.place(cruiser_computer, key)
+      end
+    else
+        board_computer.place(cruiser_computer, key)
     end
   end
-  end
+
 
   welcome_screen
   # if user_input == 'p'
