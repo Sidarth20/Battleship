@@ -92,6 +92,9 @@ class Gameflow
    end
    @board_player.place(@submarine_player, sub_location)
    @board_player.render(true)
+   # this shows that the cells have ships in them
+   # @board_player.cells.values
+   binding.pry
  end
 
  def display_boards
@@ -122,17 +125,29 @@ class Gameflow
      end
      puts "You fired upon coordinate #{player_input}"
    end
+   player_input
  end
+
+def computer_shot
+  puts "The computer is choosing a coordinate to fire upon."
+  computer_initial_guess = @board_computer.cells.keys.sample
+  @board_computer.cells.values.fire_upon
+
+end
+
+def results
+  puts "Your shot on #{player_shot} was a #{}"
+end
 
 end
 
 
-Gameflow.new.welcome_screen
-Gameflow.new.computer_turn_setup(@cruiser_computer, location = @new_placement)
+# Gameflow.new.welcome_screen
+# Gameflow.new.computer_turn_setup(@cruiser_computer, location = @new_placement)
 Gameflow.new.player_instructions
-Gameflow.new.display_boards
-Gameflow.new.player_shot
-
+# Gameflow.new.display_boards
+# Gameflow.new.player_shot
+# Gameflow.new.computer_shot
 
 
 
