@@ -64,75 +64,58 @@ class Gameflow
     else
       @board_computer.place(@submarine_computer, submarine_options.sample)
     end
-    @board_computer.render(true)
   end
-
-
-
-
- # JOANNA'S TINKERING FUN TIME
- #inifinite loop
- #if odds are too low of getting a random valid placement
- # nested array of valid placements - rows and columns
- #FOR CRUISER
- # keys = @board_computer.cells.keys
- # letters = keys.map{|key| key.split('').first}
- # numbers = keys.map{|key|key.split('').last}
- # pre__validation = Array.new(@cruiser_computer.length)
- # # MAYBE have a nested collection:
- # # => hash w/ 2 keys: :horizontal & :vertical
- # # =>   { :horizontal => [nested array w/ arrays of valid horizonal placements],
- # # =>     :vertical => nested array w/ arrays of valid vertical placements]
- # # =>   }
- # # OR
- # # maybe more simply just one, big nested array
- # giant_nested_array = []
- #
- # def comp_generator_params(letters, numbers)
- #   keys = @board_computer.cells.keys
- #   letters = keys.map{|key| key.split('').first}
- #   numbers = keys.map{|key|key.split('').last}
- #   pre__validation = Array.new(@cruiser_computer.length)
- #   @computer_board
- #   INCOMPLETE
- # end
-
-  #is consecutive_check(numbers) needed
-
-
-
-
-
-
-
 
 
  def player_instructions
    puts "I have laid out my ships on the grid."
    puts "You now need to lay out your two ships."
    puts "The Cruiser is three units long and the Submarine is two units long."
-   board_computer.render
+   @board_computer.render
    puts "Enter the squares for the Cruiser (3 spaces):"
    cruiser_squares = gets.chomp
-   cruiser_location = cruiser_squares.to_a
-   board_player.valid_placement(cruiser_player, cruiser_location)
-   while board_player.valid_placement(cruiser_player, cruiser_location) == false
+   cruiser_location = cruiser_squares.split()
+   @board_player.valid_placement?(@cruiser_player, cruiser_location)
+   while @board_player.valid_placement?(@cruiser_player, cruiser_location) == false
      puts "Those are invalid coordinates. Please try again:"
      cruiser_squares = gets.chomp
-     cruiser_location = cruiser_squares.to_a
+     cruiser_location = cruiser_squares.split()
    end
-   board_player.render(true)
+   @board_player.place(@cruiser_player, cruiser_location)
+   @board_player.render(true)
    puts "Enter the squares for the Submarine (2 spaces):"
    submarine_squares = gets.chomp
-   sub_location = submarine_squares.to_a
-   board_player.valid_placement(submarine_player, sub_location)
-   while board_player.valid_placement(submarine_player, sub_location) == false
+   sub_location = submarine_squares.split()
+   @board_player.valid_placement?(@submarine_player, sub_location)
+   while @board_player.valid_placement?(@submarine_player, sub_location) == false
      puts "Those are invalid coordinates. Please try again:"
      submarine_squares = gets.chomp
-     sub_location = submarine_squares.to_a
+     sub_location = submarine_squares.split()
    end
-   board_player.place(submarine_player, sub_location)
+   @board_player.place(@submarine_player, sub_location)
+   @board_player.render(true)
  end
+
+ def display_boards
+   puts "=================COMPUTER BOARD================="
+   @board_computer.render
+
+   puts "=================PLAYER BOARD================="
+   @board_player.render(true)
+ end
+
+end
+
+
+Gameflow.new.welcome_screen
+Gameflow.new.computer_turn_setup(@cruiser_computer, location = @new_placement)
+Gameflow.new.player_instructions
+
+
+
+
+
+
 
 # invalid = true #setting flag to track sates of something
  # while invalid do
@@ -142,10 +125,3 @@ class Gameflow
  #     invalid = false
  #   end
  # end
-
-end
-
-
-Gameflow.new.welcome_screen
-Gameflow.new.computer_turn_setup(@cruiser_computer, location = @new_placement)
-# Gameflow.new.new_placement_helper
