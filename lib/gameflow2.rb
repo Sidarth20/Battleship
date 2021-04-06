@@ -64,7 +64,7 @@ class Gameflow
     end
   end
 
-
+  # IF TIME allow for edge case of lower case input
  def player_instructions
    puts "I have laid out my ships on the grid."
    puts "You now need to lay out your two ships."
@@ -124,14 +124,6 @@ class Gameflow
    end
  end
 
-#  loop do
-#   puts "Do you want to do that again?"
-#   answer = gets.chomp
-#   if answer != 'Y'
-#     break
-#   end
-# end
-
 end
 
 
@@ -142,7 +134,6 @@ Gameflow.new.display_boards
 Gameflow.new.player_shot
 
 
-# IF TIME allow for edge case of lower case input
 
 
 #Turn
