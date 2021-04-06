@@ -105,14 +105,9 @@ class Gameflow
  def player_shot
    puts "It is your turn to OPEN FIRE! Please enter one coordinate for your shot:"
    player_input = gets.chomp
-   # binding.pry
    if @board_player.cells.has_key?(player_input)
-   # if player_input == @board_player.valid_coordinate?(player_input)
      puts "You fired upon coordinate #{player_input}"
    else
-   # elsif player_input != @board_player.valid_coordinate?(player_input)
-     # puts "You did not enter a valid coordinate. Please enter a valid coordinate:"
-     # player_input = gets.chomp
      loop do
        puts "You did not enter a valid coordinate. Please enter a valid coordinate:"
        player_input = gets.chomp
@@ -124,14 +119,33 @@ class Gameflow
    end
  end
 
+ def computer_shot
+   puts "I, The Almighty Computer, will now shoot my shot upon..."
+   cells = @board_player.cells.values
+   cells.find do |cell|
+     loop do
+       if cell.empty? && cell.coordinate == @board_player.cells.keys.sample
+         break
+       end
+     end
+     cell.fire_upon
+     puts "coordinate #{cell.coordinate}"
+     break
+   end
+ end
 end
 
 
-Gameflow.new.welcome_screen
-Gameflow.new.computer_turn_setup(@cruiser_computer, location = @new_placement)
-Gameflow.new.player_instructions
-Gameflow.new.display_boards
+
+
+
+
+# Gameflow.new.welcome_screen
+# Gameflow.new.computer_turn_setup(@cruiser_computer, location = @new_placement)
+# Gameflow.new.player_instructions
+# Gameflow.new.display_boards
 Gameflow.new.player_shot
+Gameflow.new.computer_shot
 
 
 
