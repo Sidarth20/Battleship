@@ -10,6 +10,22 @@ class Gameflow
     @cruiser_computer = Ship.new("Cruiser", 3)
     @submarine_computer = Ship.new("Submarine", 2)
     @new_placement = []
+    @computer_array = [['A1', 'A2', 'A3'], ['A2', 'A3', 'A4'],
+                       ['B1', 'B2', 'B3'], ['B2', 'B3', 'B4'],
+                       ['C1', 'C2', 'C3'], ['C2', 'C3', 'C4'],
+                       ['D1', 'D2', 'D3'], ['D2', 'D3', 'D4'],
+                       ['A1', 'B1', 'C1'], ['B1', 'C1', 'D1'],
+                       ['A2', 'B2', 'C2'], ['B2', 'C2', 'D2'],
+                       ['A3', 'B3', 'C3'], ['B3', 'C3', 'D3'],
+                       ['A4', 'B4', 'C4'], ['B4', 'C4', 'D4'],
+                       ['A1', 'A2'],['A2', 'A3'],['A3', 'A4'],
+                       ['B1', 'B2'],['B2', 'B3'],['B3', 'B4'],
+                       ['C1', 'C2'],['C2', 'C3'],['C3', 'C4'],
+                       ['D1', 'D2'],['D2', 'D3'],['D3', 'D4'],
+                       ['A1', 'B1'],['B1', 'C1'],['C1', 'D1'],
+                       ['A2', 'B2'],['B2', 'C2'],['C2', 'D2'],
+                       ['A3', 'B3'],['B3', 'C3'],['C3', 'D3'],
+                       ['A4', 'B4'],['B4', 'C4'],['C4', 'D4']]
     @board_player = Board.new
     @cruiser_player = Ship.new("Cruiser", 3)
     @submarine_player = Ship.new("Submarine", 2)
@@ -27,32 +43,32 @@ class Gameflow
     else
       puts "Have a good day!"
     end
-
-
-
-  def computer_turn_setup(ship, location = @new_placement)
-    invalid = true #setting flag to track sates of something
-    while invalid do
-      new_placement_helper
-      passed = validation(ship)
-      if passed
-        invalid = false
-      end
-    end
-    board_computer.place(cruiser_computer, location)
-    board_computer.render(true)
   end
 
-  def new_placement_helper
-   keys = @board_computer.cells.keys
-   until @new_placement.length == @cruiser_computer.length
-     @new_placement << keys.sample
-   end
- end
+  def computer_turn_setup(ship, location)
+    cruiser_options = @computer_array.find_all do |element|
+      element.length == @cruiser_computer.length
+    end
+    # cruiser_options.sample
+    @board_computer.place(@cruiser_computer, cruiser_options.sample)
 
- def validation(ship)
-   @board_computer.valid_placement?(@cruiser_computer, @new_placement)
- end
+    submarine_options = @computer_array.find_all do |element|
+      element.length == @submarine_computer.length
+    end
+    # submarine_options.sample
+    # @board_ computer.valid_placement?(ship, submarine_options.sample)
+    if @board_computer.valid_placement?(@submarine_computer, submarine_options.sample) == false
+      submarine_options = @computer_array.find_all do |element|
+        element.length == @submarine_computer.length
+      end
+    else
+      @board_computer.place(@submarine_computer, submarine_options.sample)
+    end
+    @board_computer.render(true)
+  end
+
+
+
 
  # JOANNA'S TINKERING FUN TIME
  #inifinite loop
@@ -118,10 +134,17 @@ class Gameflow
    board_player.place(submarine_player, sub_location)
  end
 
-
+# invalid = true #setting flag to track sates of something
+ # while invalid do
+ #   new_placement_helper
+ #   passed = validation(ship)
+ #   if passed
+ #     invalid = false
+ #   end
+ # end
 
 end
-end
+
 
 Gameflow.new.welcome_screen
 Gameflow.new.computer_turn_setup(@cruiser_computer, location = @new_placement)
