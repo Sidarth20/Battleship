@@ -40,8 +40,9 @@ class Gameflow
       puts "May the odds be ever in your favor."
     # elsif user_input == "\n"
     #   puts "Please enter p or q"
-    else
+  else user_input == 'q'
       puts "Have a good day!"
+      exit
     end
   end
 
@@ -142,9 +143,9 @@ end
 end
 
 
-# Gameflow.new.welcome_screen
+Gameflow.new.welcome_screen
 # Gameflow.new.computer_turn_setup(@cruiser_computer, location = @new_placement)
-Gameflow.new.player_instructions
+# Gameflow.new.player_instructions
 # Gameflow.new.display_boards
 # Gameflow.new.player_shot
 # Gameflow.new.computer_shot
