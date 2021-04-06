@@ -45,18 +45,16 @@ class Gameflow
     end
   end
 
+  #for welcome message - elsif "q" exit out, else "Please input 'p' or 'q'"
+
   def computer_turn_setup(ship, location)
     cruiser_options = @computer_array.find_all do |element|
       element.length == @cruiser_computer.length
     end
-    # cruiser_options.sample
     @board_computer.place(@cruiser_computer, cruiser_options.sample)
-
     submarine_options = @computer_array.find_all do |element|
       element.length == @submarine_computer.length
     end
-    # submarine_options.sample
-    # @board_ computer.valid_placement?(ship, submarine_options.sample)
     if @board_computer.valid_placement?(@submarine_computer, submarine_options.sample) == false
       submarine_options = @computer_array.find_all do |element|
         element.length == @submarine_computer.length
@@ -104,12 +102,69 @@ class Gameflow
    @board_player.render(true)
  end
 
+ def player_shot
+   puts "It is your turn to OPEN FIRE! Please enter one coordinate for your shot:"
+   player_input = gets.chomp
+   # binding.pry
+   if @board_player.cells.has_key?(player_input)
+   # if player_input == @board_player.valid_coordinate?(player_input)
+     puts "You fired upon coordinate #{player_input}"
+   else
+   # elsif player_input != @board_player.valid_coordinate?(player_input)
+     # puts "You did not enter a valid coordinate. Please enter a valid coordinate:"
+     # player_input = gets.chomp
+     loop do
+       puts "You did not enter a valid coordinate. Please enter a valid coordinate:"
+       player_input = gets.chomp
+       if @board_player.cells.has_key?(player_input)
+         break
+       end
+     end
+     puts "You fired upon coordinate #{player_input}"
+   end
+ end
+
+#  loop do
+#   puts "Do you want to do that again?"
+#   answer = gets.chomp
+#   if answer != 'Y'
+#     break
+#   end
+# end
+
 end
 
 
 Gameflow.new.welcome_screen
 Gameflow.new.computer_turn_setup(@cruiser_computer, location = @new_placement)
 Gameflow.new.player_instructions
+Gameflow.new.display_boards
+Gameflow.new.player_shot
+
+
+# IF TIME allow for edge case of lower case input
+
+
+#Turn
+# allow turns to alternate  - who shall go first (user/player or comp - looks like player)?
+# maybe before displaying board we print some brief firing instructions?
+# 1. display 2 boards - computer + player
+    # p "=============COMPUTER BOARD============="
+    # computer_board = Board.new
+    # computer_board.render (not sure about this, just a guess)
+    #
+    # p "==============PLAYER BOARD=============="
+    # player_board = Board.new
+    # player_board.render
+# 2. Player choosing a coordinate to fire on
+    # print something like below (or whatever phrasing is most clear)
+    # "It is your turn to OPEN FIRE! Please enter a coordinate to fire upon"
+    # if user_input != a valid coordinate
+        #loop prompt until user_input == valid coordinate
+    # else (meaning is was input was valid coordinate )
+        # maybe print confirmation message "You fired upon #{user_input}"
+          #and then move to computer's turn/shot
+    # decide where/when to print results (shot missed/hit/sunk) - after each shot?
 
 
 
