@@ -5,6 +5,7 @@ require './lib/ship'
 require 'pry'
 
 class Gameflow
+  attr_reader :computer_guess
 
   def initialize
     @board_computer = Board.new
@@ -30,6 +31,7 @@ class Gameflow
     @board_player = Board.new
     @cruiser_player = Ship.new("Cruiser", 3)
     @submarine_player = Ship.new("Submarine", 2)
+    @computer_guess = computer_guess
   end
 
   def welcome_screen
@@ -122,17 +124,55 @@ class Gameflow
 
  def computer_shot
    puts "I, The Almighty Computer, will now shoot my shot upon..."
-   cells = @board_player.cells.values
-   comp_guess = @board_player.cells.keys.sample
-   cells.find do |cell|
-     # guess = @board_player.cells.keys.sample
-     if !cell.fired_upon? && cell.coordinate == comp_guess
-       cell.fire_upon
-       puts "coordinate #{comp_guess}"
-     end
+   shot = fired_upon_check
+   shot.fire_upon
+   puts "coordinate #{shot.coordinate}"
+   # binding.pry
+   # cells.find do |cell|
+   #   # # guess = @board_player.cells.keys.sample
+   #   # if !cell.fired_upon? && cell.coordinate == comp_guess
+   #   #   cell.fire_upon
+   #   #   puts "coordinate #{comp_guess}"
+   #   #   puts "moving to else"
+   #   # end
+   #   # else
+   #   #   loop do
+   #   #     while cell.fired_upon?
+   #   #       comp_guess = @board_player.cells.keys.sample
+   #   #     end
+   #   #     if cell.coordinate == comp_guess
+   #   #       break
+   #   #     end
+   #   #   end
+   #   #   cell.fire_upon
+   #   #   puts "coordinate #{comp_guess}"
+   #   # end
+   # end
+ end
+
+ def fired_upon_check
+   @computer_guess = @board_player.cells.keys.sample
+   @board_player.cells.values.find do |cell|
+      !cell.fired_upon? && cell.coordinate == @computer_guess
     end
   end
+
+
 end
+
+
+       # loop do
+       #   comp_guess = @board_player.cells.keys.sample
+       #   if cell.coordinate == @board_player.cells.keys.sample && !cell.fired_upon?
+       #     break
+       #   end
+       # end
+       # cell.fire_upon
+       # puts "coordinate #{comp_guess}"
+
+
+
+
      # else
      #   loop do
      #     if cell.coordinate == @board_player.cells.keys.sample
