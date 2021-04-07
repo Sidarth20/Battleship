@@ -95,7 +95,7 @@ class GameSetup
  def display_boards #FIX  - NOT DISPLAYING
    puts "=================COMPUTER BOARD=================
         "
-   @board_computer.render(true)
+   @board_computer.render
 
    puts "=================PLAYER BOARD=================
         "
