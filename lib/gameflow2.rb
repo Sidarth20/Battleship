@@ -31,7 +31,7 @@ class Gameflow
     @submarine_player = Ship.new("Submarine", 2)
   end
 
-  def welcome_screen
+  def start
     puts "Welcome to BATTLESHIP"
     puts "Enter p to play. Enter q to quit."
 
@@ -44,11 +44,9 @@ class Gameflow
       puts "Have a good day!"
       exit
     end
-  end
 
-  #for welcome message - elsif "q" exit out, else "Please input 'p' or 'q'"
-
-  def computer_turn_setup(ship, location)
+    puts "\n"
+    #computer_board_setup
     cruiser_options = @computer_array.find_all do |element|
       element.length == @cruiser_computer.length
     end
@@ -63,10 +61,9 @@ class Gameflow
     else
       @board_computer.place(@submarine_computer, submarine_options.sample)
     end
-  end
 
+    #player_instructions
   # IF TIME allow for edge case of lower case input
- def player_instructions
    puts "I have laid out my ships on the grid."
    puts "You now need to lay out your two ships."
    puts "The Cruiser is three units long and the Submarine is two units long."
@@ -74,12 +71,14 @@ class Gameflow
    puts "Enter the squares for the Cruiser (3 spaces):"
    cruiser_squares = gets.chomp
    cruiser_location = cruiser_squares.split()
+   puts "\n"
    @board_player.valid_placement?(@cruiser_player, cruiser_location)
    while @board_player.valid_placement?(@cruiser_player, cruiser_location) == false
      puts "Those are invalid coordinates. Please try again:"
      cruiser_squares = gets.chomp
      cruiser_location = cruiser_squares.split()
    end
+   puts "\n"
    @board_player.place(@cruiser_player, cruiser_location)
    @board_player.render(true)
    puts "Enter the squares for the Submarine (2 spaces):"
@@ -95,18 +94,19 @@ class Gameflow
    @board_player.render(true)
    # this shows that the cells have ships in them
    # @board_player.cells.values
-   binding.pry
- end
 
- def display_boards
+   puts "\n\n\n"
+
+   #displays board
    puts "=================COMPUTER BOARD================="
-   @board_computer.render
+   @board_computer.render(true)
 
    puts "=================PLAYER BOARD================="
    @board_player.render(true)
- end
 
- def player_shot
+   puts "\n"
+
+   #player_shot
    puts "It is your turn to OPEN FIRE! Please enter one coordinate for your shot:"
    player_input = gets.chomp
    # binding.pry
@@ -126,24 +126,67 @@ class Gameflow
      end
      puts "You fired upon coordinate #{player_input}"
    end
-   player_input
+
+   #RESULTS
+   #player_results:
+   #if @coordinate in the array @board_computer.cells.values != player_input
+    #puts "Your shot on #{player_input} was a miss"
+   #else
+    #if @ship.health > 1
+      #puts "Your shot on #{player_input} was a hit"
+    #else @ship.health < 1
+      #puts "Your shot on #{player_input} has sunk a ship"
+    #end
+   #end
+
+   #computer_results:
+   #if @coordinate in the array @board_player.cells.values != computer_guess
+    #puts "Your shot on #{computer_guess} was a miss"
+   #else
+    #if @ship.health > 1
+      #puts "Your shot on #{computer_guess} was a hit"
+    #else @ship.health < 1
+      #puts "Your shot on #{computer_guess} has sunk a ship"
+    #end
+   #end
+
+   #END GAME
+   #if @board_player.cells.values @ship.health < 1 for all ships
+    #puts "I won!"
+   #else @board_computer.cells.values @ship.health < 1 for all ships
+    #puts "You won!"
+   #end
+   #  puts "Welcome to BATTLESHIP"
+   #   puts "Enter p to play. Enter q to quit."
+   #
+   #   user_input = gets.chomp
+   #   if user_input == 'p'
+   #     puts "May the odds be ever in your favor."
+   #   # elsif user_input == "\n"
+   #   #   puts "Please enter p or q"
+   # else user_input == 'q'
+   #     puts "Have a good day!"
+   #     exit
+   #   end
+
  end
 
-def computer_shot
-  puts "The computer is choosing a coordinate to fire upon."
-  computer_initial_guess = @board_computer.cells.keys.sample
-  @board_computer.cells.values.fire_upon
+# def computer_shot
+#   puts "The computer is choosing a coordinate to fire upon."
+#   computer_initial_guess = @board_computer.cells.keys.sample
+#   @board_computer.cells.values.fire_upon
+#
+# end
+#
+
+
+
 
 end
-
-def results
-  puts "Your shot on #{player_shot} was a #{}"
-end
-
-end
+Gameflow.new.start
 
 
-Gameflow.new.welcome_screen
+# Gameflow.new.welcome_screen
 # Gameflow.new.computer_turn_setup(@cruiser_computer, location = @new_placement)
 # Gameflow.new.player_instructions
 # Gameflow.new.display_boards
@@ -186,4 +229,4 @@ Gameflow.new.welcome_screen
  #   if passed
  #     invalid = false
  #   end
- # end
+#end
