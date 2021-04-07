@@ -5,7 +5,6 @@ require './lib/ship'
 require 'pry'
 
 class Gameflow
-  attr_reader :computer_guess
 
   def initialize
     @board_computer = Board.new
@@ -31,7 +30,6 @@ class Gameflow
     @board_player = Board.new
     @cruiser_player = Ship.new("Cruiser", 3)
     @submarine_player = Ship.new("Submarine", 2)
-    @computer_guess = computer_guess
   end
 
   def welcome_screen
@@ -107,55 +105,46 @@ class Gameflow
 
  def player_shot
    puts "It is your turn to OPEN FIRE! Please enter one coordinate for your shot:"
-   player_input = gets.chomp
-   if @board_player.cells.has_key?(player_input)
-     puts "You fired upon coordinate #{player_input}"
+   @player_input = gets.chomp
+   if @board_player.cells.has_key?(@player_input)
+     shot = fired_upon_check2
+     shot.fire_upon
+     puts "You fired upon coordinate #{@player_input}"
    else
      loop do
        puts "You did not enter a valid coordinate. Please enter a valid coordinate:"
-       player_input = gets.chomp
-       if @board_player.cells.has_key?(player_input)
+       @player_input2 = gets.chomp
+       if @board_player.cells.has_key?(@player_input2)
          break
        end
      end
-     puts "You fired upon coordinate #{player_input}"
+     shot = fired_upon_check2
+     puts "You fired upon coordinate #{@player_input2}"
    end
  end
 
  def computer_shot
    puts "I, The Almighty Computer, will now shoot my shot upon..."
-   shot = fired_upon_check
+   shot = fired_upon_check1
    shot.fire_upon
    puts "coordinate #{shot.coordinate}"
-   # binding.pry
-   # cells.find do |cell|
-   #   # # guess = @board_player.cells.keys.sample
-   #   # if !cell.fired_upon? && cell.coordinate == comp_guess
-   #   #   cell.fire_upon
-   #   #   puts "coordinate #{comp_guess}"
-   #   #   puts "moving to else"
-   #   # end
-   #   # else
-   #   #   loop do
-   #   #     while cell.fired_upon?
-   #   #       comp_guess = @board_player.cells.keys.sample
-   #   #     end
-   #   #     if cell.coordinate == comp_guess
-   #   #       break
-   #   #     end
-   #   #   end
-   #   #   cell.fire_upon
-   #   #   puts "coordinate #{comp_guess}"
-   #   # end
-   # end
  end
 
- def fired_upon_check
+ def fired_upon_check1 #for computer on player board - better name
    @computer_guess = @board_player.cells.keys.sample
    @board_player.cells.values.find do |cell|
       !cell.fired_upon? && cell.coordinate == @computer_guess
     end
   end
+
+  def fired_upon_check2 #for player on computer board - better name
+    # @player_inout = gets.chomp
+    @board_computer.cells.values.find do |cell|
+       !cell.fired_upon? && cell.coordinate == @player_input || @player_input2
+     end
+  end
+
+
 
 
 end
@@ -211,7 +200,7 @@ end
 # Gameflow.new.computer_turn_setup(@cruiser_computer, location = @new_placement)
 # Gameflow.new.player_instructions
 # Gameflow.new.display_boards
-# Gameflow.new.player_shot
+Gameflow.new.player_shot
 Gameflow.new.computer_shot
 
 
