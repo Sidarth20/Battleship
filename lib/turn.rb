@@ -2,70 +2,92 @@ require './lib/board'
 require './lib/board'
 require './lib/cell'
 require './lib/ship'
-# require './lib/game_setup'
+require './lib/game_setup'
 require 'pry'
 
 class Turn
 
   def initialize
     @board_computer = Board.new
-    @cruiser_computer = Ship.new("Cruiser", 3)
-    @submarine_computer = Ship.new("Submarine", 2)
-    @new_placement = []
+  #   @cruiser_computer = Ship.new("Cruiser", 3)
+  #   @submarine_computer = Ship.new("Submarine", 2)
+  #   @new_placement = []
     @board_player = Board.new
-    @cruiser_player = Ship.new("Cruiser", 3)
-    @submarine_player = Ship.new("Submarine", 2)
+  #   @cruiser_player = Ship.new("Cruiser", 3)
+  #   @submarine_player = Ship.new("Submarine", 2)
   end
 
-
-def turn_flow #player
-
-end
-
-def player_shot
-  puts "It is your turn to OPEN FIRE! Please enter one coordinate for your shot:"
-  @player_input = gets.chomp
-  if @board_player.cells.has_key?(@player_input)
-    shot = fired_upon_check2
-    shot.fire_upon
-    puts "You fired upon coordinate #{@player_input}"
-  else
+  def turn_flow
+    # binding.pry
+    # until player_ships_health || computer_ships_health == [0, 0]
     loop do
-      puts "You did not enter a valid coordinate. Please enter a valid coordinate:"
-      @player_input2 = gets.chomp
-      if @board_player.cells.has_key?(@player_input2)
+      player_shot
+      computer_shot
+      binding.pry
+      if player_ships_health || computer_ships_health == [0, 0]
         break
       end
     end
-    shot = fired_upon_check2
-    puts "You fired upon coordinate #{@player_input2}"
+    puts player_ships_health
   end
-end
 
-def computer_shot
-  puts "I, The Almighty Computer, will now shoot my shot upon..."
-  shot = fired_upon_check1
-  shot.fire_upon
-  puts "coordinate #{shot.coordinate}"
-end
+  def player_ships_health
+    [@cruiser_player.health,
+    @submarine_player.health]
+  end
+  #
+  def computer_ships_health
+    [@cruiser_computer.health,
+     @submarine_computer.health]
+  end
 
-def fired_upon_check1 #for computer on player board - better name
-  @computer_guess = @board_player.cells.keys.sample
-  @board_player.cells.values.find do |cell|
-     !cell.fired_upon? && cell.coordinate == @computer_guess
-   end
- end
-
- def fired_upon_check2 #for player on computer board - better name
-   @board_computer.cells.values.find do |cell|
-      !cell.fired_upon? && cell.coordinate == @player_input || @player_input2
+  def player_shot
+    puts "It is your turn to OPEN FIRE! Please enter one coordinate for your shot:"
+    @player_input = gets.chomp
+    if @board_player.cells.has_key?(@player_input)
+      shot = fired_upon_check2
+      shot.fire_upon
+      puts "You fired upon coordinate #{@player_input}"
+    else
+      loop do
+        puts "You did not enter a valid coordinate. Please enter a valid coordinate:"
+        @player_input2 = gets.chomp
+        if @board_player.cells.has_key?(@player_input2)
+          break
+        end
+      end
+      shot =   fired_upon_check2
+      puts "You fired upon coordinate #{@player_input2}"
     end
+  end
+
+  def computer_shot
+    puts "I, The Almighty Computer, will now shoot my shot upon..."
+    shot = fired_upon_check1
+    shot.fire_upon
+    puts "coordinate #{shot.coordinate}"
+  end
+
+  def fired_upon_check1 #for computer on player board - better name
+    @computer_guess = @board_player.cells.keys.sample
+    @board_player.cells.values.find do |cell|
+       !cell.fired_upon? && cell.coordinate == @computer_guess
+     end
+   end
+
+   def fired_upon_check2 #for player on computer board - better name
+     @board_computer.cells.values.find do |cell|
+        !cell.fired_upon? && cell.coordinate == @player_input || @player_input2
+      end
+   end
+
  end
 
-end
+
 
 Turn.new.player_shot
 Turn.new.computer_shot
+Turn.new.turn_flow
 
 
 
