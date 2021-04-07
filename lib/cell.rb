@@ -1,5 +1,8 @@
+require './lib/ship'
+require 'pry'
+
 class Cell
-  require 'pry'
+
   attr_reader :coordinate, :ship, :fired_at, :render
 
   def initialize(coordinate)
@@ -10,8 +13,11 @@ class Cell
   end
 
   def empty?
-    return true if @ship == nil
-    false
+    if @ship == nil
+      true
+    else
+      false
+    end
   end
 
   def place_ship(ship)
@@ -20,18 +26,24 @@ class Cell
 
   def fired_upon?
     if !empty?
-      return false if @ship.health == ship.length
-      true
+      if @ship.health == ship.length
+        false
+      else
+        true
+      end
     else
-      return false if fired_at != true
-      true
+      if fired_at != true
+        false
+      else
+        true
+      end
     end
   end
 
   def fire_upon
     @fired_at = true
     if !empty?
-      ship.hit
+      @ship.hit
     end
   end
 
