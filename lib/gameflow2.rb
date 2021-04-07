@@ -123,16 +123,25 @@ class Gameflow
  def computer_shot
    puts "I, The Almighty Computer, will now shoot my shot upon..."
    cells = @board_player.cells.values
+   comp_guess = @board_player.cells.keys.sample
    cells.find do |cell|
-     if !cell.fire_upon
-       loop do
-         if cell.coordinate == @board_player.cells.keys.sample
-           break
-         end
-       end
-         cell.fire_upon
-         puts "coordinate #{cell.coordinate}"
-       end
+     # guess = @board_player.cells.keys.sample
+     if !cell.fired_upon? && cell.coordinate == comp_guess
+       cell.fire_upon
+       puts "coordinate #{comp_guess}"
+     end
+    end
+  end
+end
+     # else
+     #   loop do
+     #     if cell.coordinate == @board_player.cells.keys.sample
+     #       break
+     #     end
+     #   end
+     # end
+     # cell.fire_upon
+     # puts "coordinate #{cell.coordinate}"
      # else
      #   loop do
      #     # puts "That coordinate has already been fired at, please enter another coordinate:"
@@ -146,10 +155,9 @@ class Gameflow
      #   cell.fire_upon
      #   puts "coordinate #{cell.coordinate}"
      # end
-   end
 
- end
-end
+
+
 
 
 
@@ -163,7 +171,7 @@ end
 # Gameflow.new.computer_turn_setup(@cruiser_computer, location = @new_placement)
 # Gameflow.new.player_instructions
 # Gameflow.new.display_boards
-Gameflow.new.player_shot
+# Gameflow.new.player_shot
 Gameflow.new.computer_shot
 
 
