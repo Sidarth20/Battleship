@@ -23,11 +23,21 @@ class Turn
   #   # @submarine_player = player_sub
   # end
 
-  attr_reader :board_computer, :player_board
+  attr_reader :board_computer,
+              :player_board,
+              :player_cruiser,
+              :player_sub,
+              :comp_cruiser,
+              :comp_sub
 
-  def initialize(comp_board, player_board)
+  def initialize(comp_board, player_board, player_cruiser,
+                player_sub, comp_cruiser, comp_sub)
     @board_computer = comp_board
     @board_player = player_board
+    @cruiser_player = player_cruiser
+    @submarine_player = player_sub
+    @cruiser_computer = comp_cruiser
+    @submarine_computer = comp_sub
   end
 
   def turn_flow
