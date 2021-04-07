@@ -1,4 +1,5 @@
 require './lib/board'
+require './lib/board'
 require './lib/cell'
 require './lib/ship'
 require 'pry'
@@ -45,7 +46,7 @@ class Gameflow
     end
   end
 
-  #for welcome message - elsif "q" exit out, else "Please input 'p' or 'q'"
+  #for welcome message  elsif "q" exit out, else "Please input 'p' or 'q'"
 
   def computer_turn_setup(ship, location)
     cruiser_options = @computer_array.find_all do |element|
@@ -96,7 +97,7 @@ class Gameflow
 
  def display_boards
    puts "=================COMPUTER BOARD================="
-   @board_computer.render
+   @board_computer.render(true)
 
    puts "=================PLAYER BOARD================="
    @board_player.render(true)
@@ -123,17 +124,35 @@ class Gameflow
    puts "I, The Almighty Computer, will now shoot my shot upon..."
    cells = @board_player.cells.values
    cells.find do |cell|
-     loop do
-       if cell.empty? && cell.coordinate == @board_player.cells.keys.sample
-         break
+     if !cell.fire_upon
+       loop do
+         if cell.coordinate == @board_player.cells.keys.sample
+           break
+         end
        end
-     end
-     cell.fire_upon
-     puts "coordinate #{cell.coordinate}"
-     break
+         cell.fire_upon
+         puts "coordinate #{cell.coordinate}"
+       end
+     # else
+     #   loop do
+     #     # puts "That coordinate has already been fired at, please enter another coordinate:"
+     #     if !cell.fired_upon? #&& cell.coordinate == @board_player.cells.keys.sample
+     #       break
+     #     end
+     #     if cell.coordinate == @board_player.cells.keys.sample
+     #       break
+     #     end
+     #   end
+     #   cell.fire_upon
+     #   puts "coordinate #{cell.coordinate}"
+     # end
    end
+
  end
 end
+
+
+
 
 
 
@@ -151,9 +170,9 @@ Gameflow.new.computer_shot
 
 
 #Turn
-# allow turns to alternate  - who shall go first (user/player or comp - looks like player)?
+# allow turns to alternate   who shall go first (user/player or comp  looks like player)?
 # maybe before displaying board we print some brief firing instructions?
-# 1. display 2 boards - computer + player
+# 1. display 2 boards  computer + player
     # p "=============COMPUTER BOARD============="
     # computer_board = Board.new
     # computer_board.render (not sure about this, just a guess)
@@ -169,7 +188,7 @@ Gameflow.new.computer_shot
     # else (meaning is was input was valid coordinate )
         # maybe print confirmation message "You fired upon #{user_input}"
           #and then move to computer's turn/shot
-    # decide where/when to print results (shot missed/hit/sunk) - after each shot?
+    # decide where/when to print results (shot missed/hit/sunk)  after each shot?
 
 
 
