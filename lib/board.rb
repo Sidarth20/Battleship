@@ -1,3 +1,7 @@
+require './lib/ship'
+require './lib/cell'
+require 'pry'
+
 class Board
   attr_reader :cells
 
@@ -77,7 +81,7 @@ class Board
   end
   string
 
-  p spaces = "  1 2 3 4 \n" +
+  puts spaces = "  1 2 3 4 \n" +
              "A #{string[0]} #{string[1]} #{string[2]} #{string[3]} \n" +
              "B #{string[4]} #{string[5]} #{string[6]} #{string[7]} \n" +
              "C #{string[8]} #{string[9]} #{string[10]} #{string[11]} \n" +
