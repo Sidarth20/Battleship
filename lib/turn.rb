@@ -23,6 +23,13 @@ class Turn
   #   # @submarine_player = player_sub
   # end
 
+  attr_reader :board_computer, :player_board
+
+  def initialize(comp_board, player_board)
+    @board_computer = comp_board
+    @board_player = player_board
+  end
+
   def turn_flow
     # binding.pry
     # until player_ships_health || computer_ships_health == [0, 0]
@@ -49,7 +56,7 @@ class Turn
   def player_shot
     puts "It is your turn to OPEN FIRE! Please enter one coordinate for your shot:"
     @player_input = gets.chomp
-    if @board_player.cells.has_key?(@player_input)
+    if @board_computer.cells.has_key?(@player_input)
       shot = fired_upon_check2
       shot.fire_upon
       puts "You fired upon coordinate #{@player_input}"
