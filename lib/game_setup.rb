@@ -6,30 +6,21 @@ require 'pry'
 
 class Gameflow
 
-  def initialize
+  attr_reader :cruiser_computer, :submarine_computer, :cruiser_player, :submarine_player
+
+  def initialize (comp_cruiser, comp_sub, player_cruiser, player_sub)
     @board_computer = Board.new
-    @cruiser_computer = Ship.new("Cruiser", 3)
-    @submarine_computer = Ship.new("Submarine", 2)
-    @new_placement = []
-    @computer_array = [['A1', 'A2', 'A3'], ['A2', 'A3', 'A4'],
-                       ['B1', 'B2', 'B3'], ['B2', 'B3', 'B4'],
-                       ['C1', 'C2', 'C3'], ['C2', 'C3', 'C4'],
-                       ['D1', 'D2', 'D3'], ['D2', 'D3', 'D4'],
-                       ['A1', 'B1', 'C1'], ['B1', 'C1', 'D1'],
-                       ['A2', 'B2', 'C2'], ['B2', 'C2', 'D2'],
-                       ['A3', 'B3', 'C3'], ['B3', 'C3', 'D3'],
-                       ['A4', 'B4', 'C4'], ['B4', 'C4', 'D4'],
-                       ['A1', 'A2'],['A2', 'A3'],['A3', 'A4'],
-                       ['B1', 'B2'],['B2', 'B3'],['B3', 'B4'],
-                       ['C1', 'C2'],['C2', 'C3'],['C3', 'C4'],
-                       ['D1', 'D2'],['D2', 'D3'],['D3', 'D4'],
-                       ['A1', 'B1'],['B1', 'C1'],['C1', 'D1'],
-                       ['A2', 'B2'],['B2', 'C2'],['C2', 'D2'],
-                       ['A3', 'B3'],['B3', 'C3'],['C3', 'D3'],
-                       ['A4', 'B4'],['B4', 'C4'],['C4', 'D4']]
     @board_player = Board.new
-    @cruiser_player = Ship.new("Cruiser", 3)
-    @submarine_player = Ship.new("Submarine", 2)
+    @cruiser_computer = comp_cruiser
+    # @cruiser_computer = Ship.new("Cruiser", 3)
+    @submarine_computer = comp_sub
+    # @submarine_computer = Ship.new("Submarine", 2)
+    @cruiser_player = player_cruiser
+    # @cruiser_player = Ship.new("Cruiser", 3)
+    @submarine_player = player_sub
+    # @submarine_player = Ship.new("Submarine", 2)
+    @new_placement = []
+    @computer_array = viable_ship_placment
   end
 
   def welcome_screen
@@ -103,6 +94,26 @@ class Gameflow
    @board_player.render(true)
  end
 
+ def viable_ship_placment
+   [['A1', 'A2', 'A3'], ['A2', 'A3', 'A4'],
+   ['B1', 'B2', 'B3'], ['B2', 'B3', 'B4'],
+   ['C1', 'C2', 'C3'], ['C2', 'C3', 'C4'],
+   ['D1', 'D2', 'D3'], ['D2', 'D3', 'D4'],
+   ['A1', 'B1', 'C1'], ['B1', 'C1', 'D1'],
+   ['A2', 'B2', 'C2'], ['B2', 'C2', 'D2'],
+   ['A3', 'B3', 'C3'], ['B3', 'C3', 'D3'],
+   ['A4', 'B4', 'C4'], ['B4', 'C4', 'D4'],
+   ['A1', 'A2'],['A2', 'A3'],['A3', 'A4'],
+   ['B1', 'B2'],['B2', 'B3'],['B3', 'B4'],
+   ['C1', 'C2'],['C2', 'C3'],['C3', 'C4'],
+   ['D1', 'D2'],['D2', 'D3'],['D3', 'D4'],
+   ['A1', 'B1'],['B1', 'C1'],['C1', 'D1'],
+   ['A2', 'B2'],['B2', 'C2'],['C2', 'D2'],
+   ['A3', 'B3'],['B3', 'C3'],['C3', 'D3'],
+   ['A4', 'B4'],['B4', 'C4'],['C4', 'D4']]
+ end
+
+
  # def player_shot
  #   puts "It is your turn to OPEN FIRE! Please enter one coordinate for your shot:"
  #   @player_input = gets.chomp
@@ -162,7 +173,7 @@ end
 
 
 
-
+Gameflow.new.initialize #((comp_cruiser = Ship.new("Cruiser", 3)), (comp_sub = Ship.new("Submarine", 2)), (player_cruiser = Ship.new("Cruiser", 3)), (player_sub = Ship.new("Submarine", 2)))
 Gameflow.new.welcome_screen
 Gameflow.new.computer_turn_setup(@cruiser_computer, location = @new_placement)
 Gameflow.new.player_instructions

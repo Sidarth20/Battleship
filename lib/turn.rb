@@ -7,7 +7,7 @@ require 'pry'
 
 class Turn
 
-  def initialize
+  def initialize(comp_cruiser, comp_sub, player_cruiser, player_sub)
     @board_computer = Board.new
   #   @cruiser_computer = Ship.new("Cruiser", 3)
   #   @submarine_computer = Ship.new("Submarine", 2)
@@ -15,6 +15,10 @@ class Turn
     @board_player = Board.new
   #   @cruiser_player = Ship.new("Cruiser", 3)
   #   @submarine_player = Ship.new("Submarine", 2)
+    @cruiser_computer = comp_cruiser
+    @submarine_computer = comp_sub
+    @cruiser_player = player_cruiser
+    @submarine_player = player_sub
   end
 
   def turn_flow
