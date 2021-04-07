@@ -39,6 +39,8 @@ end
 def start_turns
   @new_game_turns.player_shot
   @new_game_turns.turn_flow
+  @new_game.display_boards
+
 
 end
 

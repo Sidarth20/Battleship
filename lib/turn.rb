@@ -26,8 +26,10 @@ class Turn
     while player_ships_health || computer_ships_health == [0, 0]
       player_shot
       computer_shot
+      # player_results(ship)
+      # computer_results(ship)
+      # @new_game.display_boards
     end
-    puts player_ships_health
   end
 
   def player_ships_health
@@ -44,12 +46,14 @@ class Turn
     puts "It is your turn to OPEN FIRE! Please enter one coordinate for your shot:
           "
     @player_input = gets.chomp
-    if @board_computer.cells.has_key?(@player_input)
-      shot = fired_upon_check2
-      shot.fire_upon
+    cell = fired_upon_check2
+    if @board_computer.cells.has_key?(@player_input) || cell = nil
+      #if fire uupon already - need to handle this (new guess)
+      cell.fire_upon
       puts "You fired upon coordinate #{@player_input}
             "
     else
+      # binding.pry
       loop do
         puts "You did not enter a valid coordinate. Please enter a valid coordinate:
               "
@@ -58,7 +62,7 @@ class Turn
           break
         end
       end
-      shot =   fired_upon_check2
+      cell = fired_upon_check2
       puts "You fired upon coordinate #{@player_input2}
             "
     end
@@ -67,9 +71,10 @@ class Turn
   def computer_shot
     puts "I, The Almighty Computer, will now shoot my shot upon...
           "
-    shot = fired_upon_check1
-    shot.fire_upon
-    puts "coordinate #{shot.coordinate}
+    cell = fired_upon_check1
+    binding.pry
+    cell.fire_upon
+    puts "coordinate #{cell.coordinate}
           "
   end
 
@@ -85,5 +90,33 @@ class Turn
         !cell.fired_upon? && cell.coordinate == @player_input || @player_input2
       end
    end
+
+   def player_results(ship) #pass current shot in only
+     @board_computer.cells.values.find do |cell|
+       if (@player_input || @player_input2)!= cell.coordinate
+         puts "Your shot on #{@player_input || @player_input2} was a miss"
+       else
+         if @ship.health > 1
+           puts "Your shot on #{@player_input || @player_input2} was a hit"
+         else @ship.health < 1
+          puts "Your shot on #{@player_input || @player_input2} has sunk a ship"
+         end
+        end
+      end
+    end
+
+    def computer_results(ship)
+      @board_player.cells.values.find do |cell|
+        if @computer_guess != cell.coordinate
+          puts "Your shot on #{@computer_guess} was a miss"
+        else
+          if @ship.health > 1
+            puts "Your shot on #{@computer_guess} was a hit"
+          else @ship.health < 1
+            puts "Your shot on #{@computer_guess} has sunk a ship"
+          end
+        end
+      end
+    end
 
  end

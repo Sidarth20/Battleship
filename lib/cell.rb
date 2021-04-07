@@ -32,10 +32,10 @@ class Cell
   end
 
   def fire_upon
-    @fired_at = true
-    if !empty?
-      ship.hit
+    if @ship != nil
+      @ship.hit
     end
+    @fired_at = true
   end
 
   def render(always_reveal = false)
@@ -53,4 +53,6 @@ class Cell
       'X'
     end
   end
+
+
 end

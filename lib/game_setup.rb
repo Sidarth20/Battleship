@@ -35,6 +35,7 @@ class GameSetup
     #   puts "Please enter p or q"
     else
       puts "Have a good day!"
+      exit
     end
   end
 
