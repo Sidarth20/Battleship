@@ -1,25 +1,27 @@
-require './lib/board'
-require './lib/board'
-require './lib/cell'
 require './lib/ship'
+require './lib/cell'
+require './lib/board'
 require './lib/game_setup'
 require 'pry'
 
 class Turn
-
-  def initialize(comp_cruiser, comp_sub, player_cruiser, player_sub)
-    @board_computer = Board.new
-  #   @cruiser_computer = Ship.new("Cruiser", 3)
-  #   @submarine_computer = Ship.new("Submarine", 2)
-  #   @new_placement = []
-    @board_player = Board.new
-  #   @cruiser_player = Ship.new("Cruiser", 3)
-  #   @submarine_player = Ship.new("Submarine", 2)
-    @cruiser_computer = comp_cruiser
-    @submarine_computer = comp_sub
-    @cruiser_player = player_cruiser
-    @submarine_player = player_sub
-  end
+  # attr_reader :board_computer, :board_player, :cruiser_computer, :cruiser_computer, :submarine_computer, :cruiser_player, :submarine_player
+  # attr_accessor :board_player
+  #
+  # def initialize(game_setup)
+  #   @board_computer = board_computer
+  #   # @board_computer = board_computer
+  #   @cruiser_computer = cruiser_computer
+  #   @submarine_computer = submarine_computer
+  # #   @new_placement = []
+  #   @board_player = board_player
+  #   @cruiser_player = cruiser_player
+  #   @submarine_player = submarine_player
+  #   # @cruiser_computer = comp_cruiser
+  #   # @submarine_computer = comp_sub
+  #   # @cruiser_player = player_cruiser
+  #   # @submarine_player = player_sub
+  # end
 
   def turn_flow
     # binding.pry
@@ -27,7 +29,6 @@ class Turn
     loop do
       player_shot
       computer_shot
-      binding.pry
       if player_ships_health || computer_ships_health == [0, 0]
         break
       end
@@ -88,7 +89,7 @@ class Turn
  end
 
 
-
+# Turn.new.initialize(GameSetup.new)
 Turn.new.player_shot
 Turn.new.computer_shot
 Turn.new.turn_flow

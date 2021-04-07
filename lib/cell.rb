@@ -1,5 +1,8 @@
+require './lib/ship'
+require 'pry'
+
 class Cell
-  require 'pry'
+
   attr_reader :coordinate, :ship, :fired_at, :render
 
   def initialize(coordinate)

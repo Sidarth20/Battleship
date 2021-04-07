@@ -1,16 +1,18 @@
-require './lib/board'
-require './lib/board'
-require './lib/cell'
 require './lib/ship'
+require './lib/cell'
+require './lib/board'
 require 'pry'
 
-class Gameflow
+class GameSetup
 
-  attr_reader :cruiser_computer, :submarine_computer, :cruiser_player, :submarine_player
+  attr_reader :cruiser_computer, :submarine_computer, :cruiser_player, :submarine_player, :board_computer, :board_player
+  attr_accessor :board_computer, :board_player
 
-  def initialize (comp_cruiser, comp_sub, player_cruiser, player_sub)
-    @board_computer = Board.new
-    @board_player = Board.new
+  def initialize(comp_board, player_board, comp_cruiser, comp_sub, player_cruiser, player_sub)
+    # @board_computer = Board.new
+    @board_computer = comp_board
+    # @board_player = Board.new
+    @board_player = player_board
     @cruiser_computer = comp_cruiser
     # @cruiser_computer = Ship.new("Cruiser", 3)
     @submarine_computer = comp_sub
@@ -173,11 +175,11 @@ end
 
 
 
-Gameflow.new.initialize #((comp_cruiser = Ship.new("Cruiser", 3)), (comp_sub = Ship.new("Submarine", 2)), (player_cruiser = Ship.new("Cruiser", 3)), (player_sub = Ship.new("Submarine", 2)))
-Gameflow.new.welcome_screen
-Gameflow.new.computer_turn_setup(@cruiser_computer, location = @new_placement)
-Gameflow.new.player_instructions
-Gameflow.new.display_boards
+# Gameflow.new.initialize #((comp_cruiser = Ship.new("Cruiser", 3)), (comp_sub = Ship.new("Submarine", 2)), (player_cruiser = Ship.new("Cruiser", 3)), (player_sub = Ship.new("Submarine", 2)))
+# GameSetup.new.welcome_screen
+# GameSetup.new.computer_turn_setup(@cruiser_computer, location = @new_placement)
+# GameSetup.new.player_instructions
+# GameSetup.new.display_boards
 # Gameflow.new.player_shot
 # Gameflow.new.computer_shot
 
