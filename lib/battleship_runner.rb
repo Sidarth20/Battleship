@@ -51,9 +51,9 @@ end
 
 def start_turns
   @new_game_turns.player_shot
-  @new_game_turns.turn_flow #(@comp_board)
-  #issue with ship health in turn class, rb:49
+  @new_game_turns.turn_flow
+
 end
 
-# start_game_setup
+start_game_setup
 start_turns
