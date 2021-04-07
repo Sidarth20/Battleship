@@ -39,19 +39,18 @@ class Turn
     @cruiser_computer = comp_cruiser
     @submarine_computer = comp_sub
   end
-
+  # loop do
+  #   if player_ships_health || computer_ships_health == [0, 0]
+  #     break
   def turn_flow
     # binding.pry
-    # until player_ships_health || computer_ships_health == [0, 0]
-    loop do
+    while player_ships_health || computer_ships_health == [0, 0]
       player_shot
       computer_shot
-      if player_ships_health || computer_ships_health == [0, 0]
-        break
-      end
     end
     puts player_ships_health
   end
+
 
   def player_ships_health
     [@cruiser_player.health,

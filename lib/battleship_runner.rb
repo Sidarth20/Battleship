@@ -55,5 +55,5 @@ def start_turns
   #issue with ship health in turn class, rb:49
 end
 
-start_game_setup
+# start_game_setup
 start_turns
