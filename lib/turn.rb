@@ -90,9 +90,9 @@ class Turn
 
 
 # Turn.new.initialize(GameSetup.new)
-Turn.new.player_shot
-Turn.new.computer_shot
-Turn.new.turn_flow
+# Turn.new.player_shot
+# Turn.new.computer_shot
+# Turn.new.turn_flow
 
 
 

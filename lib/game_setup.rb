@@ -164,17 +164,6 @@ class GameSetup
 end
 
 
-
-
-
-
-
-
-
-
-
-
-
 # Gameflow.new.initialize #((comp_cruiser = Ship.new("Cruiser", 3)), (comp_sub = Ship.new("Submarine", 2)), (player_cruiser = Ship.new("Cruiser", 3)), (player_sub = Ship.new("Submarine", 2)))
 # GameSetup.new.welcome_screen
 # GameSetup.new.computer_turn_setup(@cruiser_computer, location = @new_placement)
@@ -182,42 +171,3 @@ end
 # GameSetup.new.display_boards
 # Gameflow.new.player_shot
 # Gameflow.new.computer_shot
-
-
-
-
-#Turn
-# allow turns to alternate   who shall go first (user/player or comp  looks like player)?
-# maybe before displaying board we print some brief firing instructions?
-# 1. display 2 boards  computer + player
-    # p "=============COMPUTER BOARD============="
-    # computer_board = Board.new
-    # computer_board.render (not sure about this, just a guess)
-    #
-    # p "==============PLAYER BOARD=============="
-    # player_board = Board.new
-    # player_board.render
-# 2. Player choosing a coordinate to fire on
-    # print something like below (or whatever phrasing is most clear)
-    # "It is your turn to OPEN FIRE! Please enter a coordinate to fire upon"
-    # if user_input != a valid coordinate
-        #loop prompt until user_input == valid coordinate
-    # else (meaning is was input was valid coordinate )
-        # maybe print confirmation message "You fired upon #{user_input}"
-          #and then move to computer's turn/shot
-    # decide where/when to print results (shot missed/hit/sunk)  after each shot?
-
-
-
-
-
-
-
-# invalid = true #setting flag to track sates of something
- # while invalid do
- #   new_placement_helper
- #   passed = validation(ship)
- #   if passed
- #     invalid = false
- #   end
- # end
